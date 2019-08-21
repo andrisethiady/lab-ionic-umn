@@ -1,11 +1,24 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RecipeDetailPage } from './recipes/recipe-detail/recipe-detail.page';
+import { RecipeDetailPageModule } from './recipes/recipe-detail/recipe-detail.module';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
-  { path: 'recipes', loadChildren: './recipes/recipes.module#RecipesPageModule' },
-];
+  { path: '', redirectTo: 'recipes', pathMatch: 'full' },
+  {
+    path: 'recipes',
+    children: [
+      {
+        path: '',
+        loadChildren: './recipes/recipes.module#RecipesPageModule'
+      },
+      {
+        path: 'recipeId',
+        loadChildren: './recipes/recipe-detail/recipe-detail.module#RecipeDetailPageModule'
+      }
+    ]
+  }
+]
 
 @NgModule({
   imports: [
