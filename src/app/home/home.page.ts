@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PlaceService } from './place.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
+address = '';
+  constructor( private placsvc: PlaceService) {}
 
-  constructor() {}
 
+  ngOnInit(){
+    this.placsvc.getAddress().subscribe(
+      currAddress => {
+        this.address = currAddress;
+      }
+    )
+  }
 }
